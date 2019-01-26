@@ -6,6 +6,7 @@ public class PlayerPickUpTrigger : MonoBehaviour
 {
     public bool CanPickUpObj    { get; set; }
     public bool ObjPickedUp     { get; set; }
+    public bool CanDropOnTruck  { get; set; }
 
     [HideInInspector]
     public PickUpableObject objToPickUp;
@@ -14,6 +15,16 @@ public class PlayerPickUpTrigger : MonoBehaviour
     {
         CanPickUpObj = false;
         ObjPickedUp = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Truck"))
+        {
+            Debug.Log("CAN drop on truck");
+            CanDropOnTruck = true;
+            CanPickUpObj = false;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -35,6 +46,12 @@ public class PlayerPickUpTrigger : MonoBehaviour
             CanPickUpObj = false;
 
             objToPickUp = null;
+        }
+
+        if (collision.gameObject.CompareTag("Truck"))
+        {
+            Debug.Log("CANT drop on truck");
+            CanDropOnTruck = false;
         }
     }
 }

@@ -37,21 +37,22 @@ public class PickUpableObject : MonoBehaviour
             pickUpTimer.EnableLoadingCircle();
         }
 
-        if (canPutDown)
-        {
-            Debug.Log("YES");
-            spriteR.color = Color.green;
-        }
-        else
-        {
-            Debug.Log("NO");
-            spriteR.color = Color.red;
-        }
+        //if (canPutDown)
+        //{
+        //    Debug.Log("YES");
+        //    spriteR.color = Color.green;
+        //}
+        //else
+        //{
+        //    Debug.Log("NO");
+        //    spriteR.color = Color.red;
+        //}
     }
 
     public void PickedUp()
     {
         // Item is now being carried by the player
+        pickUpTimer.ResetTimer();
         pickedUp = true;
     }
 

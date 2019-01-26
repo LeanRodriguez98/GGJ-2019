@@ -41,9 +41,6 @@ public class PickUpTimer : MonoBehaviour
 
         if (loadingBarImage.fillAmount < 1)
         {
-            //Debug.Log("Time: " + timerTest);
-            timerTest += Time.deltaTime;
-
             loadingBarImage.fillAmount += Time.deltaTime / currentObj.timeToPickUp;
         }
         else
@@ -57,6 +54,11 @@ public class PickUpTimer : MonoBehaviour
     public void StartTimer()
     {
         startTimer = true;
+    }
+
+    public void ResetTimer()
+    {
+        loadingBarImage.fillAmount = 0;
     }
 }
 

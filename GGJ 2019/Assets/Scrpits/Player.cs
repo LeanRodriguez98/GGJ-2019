@@ -39,6 +39,7 @@ public class Player : MonoBehaviour {
         animator.runtimeAnimatorController = controller;
 
         objectToPickUp = null;
+
         pickUpTrigger = GetComponentInChildren<PlayerPickUpTrigger>();
         movement = transform.position;
 
@@ -64,8 +65,25 @@ public class Player : MonoBehaviour {
                 break;
             case PlayerState.HOLDING_ITEM:
                 Movement(1);// <------------ Change by the object weight
-                //DropItem();
+                DropItem();
                 break;
+        }
+    }
+
+    private void DropItem()
+    {
+        if (pickUpTrigger.CanDropOnTruck)
+        {
+            if (Input.GetButtonDown("Action"))
+            {
+                Debug.Log("Item dropped on truck");
+
+                // push item into truck
+                objectToPickUp = null;
+
+                state = PlayerState.NOT_HOLDING_ITEM;
+                animator.runtimeAnimatorController = controller;
+            }
         }
     }
 
@@ -87,6 +105,7 @@ public class Player : MonoBehaviour {
                 objectToPickUp.gameObject.SetActive(false);
                 canPickUp = false;
                 state = PlayerState.HOLDING_ITEM;
+                Debug.Log("Culo");
                 animator.runtimeAnimatorController = controllerBox;
             }
         }
