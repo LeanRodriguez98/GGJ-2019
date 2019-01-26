@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Player : MonoBehaviour {
+
+    public RuntimeAnimatorController controller;
+    public RuntimeAnimatorController controllerBox;
+
+    private Animator animator;
 
     public float movementSpeed;
     private PickUpableObject objectToPickUp;
 
     private PlayerPickUpTrigger pickUpTrigger;
     private Vector2 movement;
-    private Animator animator;
     private bool canPickUp;
 
     private Rigidbody2D rb;
@@ -24,10 +29,13 @@ public class Player : MonoBehaviour {
 
     void Start ()
     {
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = controller;
+
         objectToPickUp = null;
         pickUpTrigger = GetComponentInChildren<PlayerPickUpTrigger>();
         movement = transform.position;
-        animator = GetComponent<Animator>();
+
         canPickUp = pickUpTrigger.CanPickUpObj;
         rb = GetComponent<Rigidbody2D>();
 
@@ -38,7 +46,6 @@ public class Player : MonoBehaviour {
     void FixedUpdate ()
     {
         UpdatePlayerState();
-
     }
 
     private void UpdatePlayerState()
@@ -50,7 +57,7 @@ public class Player : MonoBehaviour {
                 PickUp();
                 break;
             case PlayerState.HOLDING_ITEM:
-                MovementWithoutItem();
+                MovementWithItem();
                 //DropItem();
                 break;
         }
@@ -74,6 +81,7 @@ public class Player : MonoBehaviour {
                 objectToPickUp.gameObject.SetActive(false);
                 canPickUp = false;
                 state = PlayerState.HOLDING_ITEM;
+                animator.runtimeAnimatorController = controllerBox;
             }
         }
         else if (Input.GetButtonUp("Action"))
@@ -87,7 +95,39 @@ public class Player : MonoBehaviour {
 
     private void MovementWithItem()
     {
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+            animator.SetFloat("Horizontal", 0);
 
+        }
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+            animator.SetFloat("Vertical", 0);
+        }
+
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            animator.SetBool("NoMovement", true);
+            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+        }
+        else
+        {
+            animator.SetBool("NoMovement", false);
+        }
+
+
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        Vector2 movement = new Vector2(x, y);
+        if (movement.magnitude > 1.0f)
+        {
+            movement.Normalize();
+        }
+        rb.velocity = movement * movementSpeed * Time.fixedDeltaTime;
     }
 
     private void MovementWithoutItem()
@@ -125,10 +165,6 @@ public class Player : MonoBehaviour {
             movement.Normalize();
         }
         rb.velocity = movement * movementSpeed * Time.fixedDeltaTime;
-
-
-
-
     
 
         /*  if (Mathf.Abs(Input.GetAxis("RightHorizontal")) < Mathf.Abs(Input.GetAxis("RightVertical")))
