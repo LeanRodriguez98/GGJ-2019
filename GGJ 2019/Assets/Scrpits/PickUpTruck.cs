@@ -10,11 +10,11 @@ public class PickUpTruck : MonoBehaviour
     private bool startTimer;
     private float timer;
 
-    private Queue<PickUpableObject> pickedUpObjects;
+    public List<PickUpableObject> pickedUpObjects = new List<PickUpableObject>();
     
 	void Start ()
     {
-        pickedUpObjects = new Queue<PickUpableObject>();
+        pickedUpObjects = new List<PickUpableObject>();
         timer = 0;
 	}
 	
@@ -35,13 +35,8 @@ public class PickUpTruck : MonoBehaviour
         startTimer = true;
     }
 
-    void AddItem(PickUpableObject obj)
+    public void AddItem(PickUpableObject obj)
     {
-        pickedUpObjects.Enqueue(obj);
-    }
-
-    PickUpableObject GetItem()
-    {
-        return pickedUpObjects.Dequeue();
+        pickedUpObjects.Add(obj);
     }
 }

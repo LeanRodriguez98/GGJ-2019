@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     public float grabberOffsetX = 0.15f;
     public float grabberOffsetY = 0.1f;
 
+    private PickUpTruck truck;
+
     private Animator animator;
 
     public float movementSpeed;
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour {
 
     void Start ()
     {
+        truck = FindObjectOfType<PickUpTruck>();
+
         grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY * -1);
 
         animator = GetComponent<Animator>();
@@ -79,6 +83,7 @@ public class Player : MonoBehaviour {
                 Debug.Log("Item dropped on truck");
 
                 // push item into truck
+                truck.AddItem(objectToPickUp);
                 objectToPickUp = null;
 
                 state = PlayerState.NOT_HOLDING_ITEM;
@@ -117,7 +122,6 @@ public class Player : MonoBehaviour {
             }
         }
     }
-
     
     private void Movement(float weight)
     {
