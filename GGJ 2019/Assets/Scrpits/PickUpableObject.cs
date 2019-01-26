@@ -11,6 +11,9 @@ public class PickUpableObject : MonoBehaviour
     [HideInInspector]
     public bool beingPickedUp;
 
+    [HideInInspector]
+    public bool canPutDown;
+
     private PickUpTimer pickUpTimer;
 
     private void Start()

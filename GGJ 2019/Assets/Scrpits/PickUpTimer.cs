@@ -34,7 +34,6 @@ public class PickUpTimer : MonoBehaviour
         }
     }
 
-
     public void EnableLoadingCircle()
     {
         if (pickingUpTimer.fillAmount != 1)
