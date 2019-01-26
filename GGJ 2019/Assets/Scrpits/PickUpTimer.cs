@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PickUpTimer : MonoBehaviour
 {
-    public Image pickingUpTimer;
-
+    private Image loadingBarImage;
     private float pickUpTime;
     private bool startTimer;
 
@@ -17,8 +16,8 @@ public class PickUpTimer : MonoBehaviour
 
     private void Start()
     {
-        pickingUpTimer = GetComponent<Image>();
-        pickingUpTimer.fillAmount = 0;
+        loadingBarImage = GetComponent<Image>();
+        loadingBarImage.fillAmount = 0;
         pickUpTime = 0;
         startTimer = false;
     }
@@ -29,19 +28,19 @@ public class PickUpTimer : MonoBehaviour
         {
             if (!currentObj.beingPickedUp)
             {
-                pickingUpTimer.fillAmount = 0;
+                loadingBarImage.fillAmount = 0;
             }
         }
     }
 
     public void EnableLoadingCircle()
     {
-        if (pickingUpTimer.fillAmount != 1)
+        if (loadingBarImage.fillAmount != 1)
         {
             //Debug.Log("Time: " + timerTest);
             timerTest += Time.deltaTime;
 
-            pickingUpTimer.fillAmount += Time.deltaTime / currentObj.timeToPickUp;
+            loadingBarImage.fillAmount += Time.deltaTime / currentObj.timeToPickUp;
         }
         else
         {
