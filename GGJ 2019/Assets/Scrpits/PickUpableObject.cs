@@ -28,8 +28,6 @@ public class PickUpableObject : MonoBehaviour
 
     private void Update()
     {
-
-
         if (!pickedUp && beingPickedUp)
         {
             //Debug.Log("Someone is picking me up!!!!!!");
@@ -55,6 +53,11 @@ public class PickUpableObject : MonoBehaviour
     {
         // Item is now being carried by the player
         pickedUp = true;
+    }
+
+    public bool GetPickedUp()
+    {
+        return pickedUp;
     }
 
     // -------------- PUT DOWN OBJECTS LEVEL ----------------- //

@@ -45,7 +45,7 @@ public class PickUpTimer : MonoBehaviour
         else
         {
             Debug.Log("Object Picked Up!");
-
+            currentObj.PickedUp();
         }
     }
 

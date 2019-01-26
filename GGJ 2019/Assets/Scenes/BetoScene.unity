@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   happiness: 5
-  timeToPickUp: 10
+  timeToPickUp: 2
   objectImage: {fileID: 0}
   beingPickedUp: 0
   canPutDown: 0
