@@ -8,6 +8,10 @@ public class Player : MonoBehaviour {
     public RuntimeAnimatorController controller;
     public RuntimeAnimatorController controllerBox;
 
+    public GameObject grabberPos;
+    public float grabberOffsetX = 0.15f;
+    public float grabberOffsetY = 0.1f;
+
     private Animator animator;
 
     public float movementSpeed;
@@ -29,6 +33,8 @@ public class Player : MonoBehaviour {
 
     void Start ()
     {
+        grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY * -1);
+
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = controller;
 
@@ -53,11 +59,11 @@ public class Player : MonoBehaviour {
         switch(state)
         {
             case PlayerState.NOT_HOLDING_ITEM:
-                MovementWithoutItem();
+                Movement(1);
                 PickUp();
                 break;
             case PlayerState.HOLDING_ITEM:
-                MovementWithItem();
+                Movement(1);// <------------ Change by the object weight
                 //DropItem();
                 break;
         }
@@ -93,18 +99,38 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void MovementWithItem()
+    
+    private void Movement(float weight)
     {
         if (Input.GetAxis("Vertical") != 0)
         {
             animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
             animator.SetFloat("Horizontal", 0);
+            if (Input.GetAxis("Vertical") < 0)
+            {
+                grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY * -1);
+            }
+            else
+            {
+                grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY);
 
+            }
         }
         if (Input.GetAxis("Horizontal") != 0)
         {
             animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
             animator.SetFloat("Vertical", 0);
+
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                grabberPos.transform.localPosition = new Vector2(grabberOffsetX * -1, 0);
+
+            }
+            else
+            {
+                grabberPos.transform.localPosition = new Vector2(grabberOffsetX, 0);
+
+            }
         }
 
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
@@ -127,44 +153,7 @@ public class Player : MonoBehaviour {
         {
             movement.Normalize();
         }
-        rb.velocity = movement * movementSpeed * Time.fixedDeltaTime;
-    }
-
-    private void MovementWithoutItem()
-    {
-        if (Input.GetAxis("Vertical") != 0)
-        {
-            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
-            animator.SetFloat("Horizontal", 0);
-
-        }
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-            animator.SetFloat("Vertical", 0);
-        }
-
-        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-        {
-            animator.SetBool("NoMovement", true);
-            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
-            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-        }
-        else
-        {
-            animator.SetBool("NoMovement", false);
-        }
-
-
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-
-        Vector2 movement = new Vector2(x, y);
-        if (movement.magnitude > 1.0f)
-        {
-            movement.Normalize();
-        }
-        rb.velocity = movement * movementSpeed * Time.fixedDeltaTime;
+        rb.velocity = (movement * movementSpeed * Time.fixedDeltaTime) / weight;
     
 
         /*  if (Mathf.Abs(Input.GetAxis("RightHorizontal")) < Mathf.Abs(Input.GetAxis("RightVertical")))

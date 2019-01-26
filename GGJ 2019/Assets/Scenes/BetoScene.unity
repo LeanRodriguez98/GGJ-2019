@@ -175,7 +175,7 @@ Prefab:
     - target: {fileID: 50562985125310668, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
         type: 2}
       propertyPath: m_Mass
-      value: 0.112399995
+      value: 0.030600004
       objectReference: {fileID: 0}
     - target: {fileID: 50562985125310668, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
         type: 2}
@@ -193,6 +193,44 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: ed53818a7565ed64bb2ba1c596cea63b,
         type: 3}
+    - target: {fileID: 114534294890855092, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0884c1edfce0df54ea588425944f3ab4, type: 2}
+    - target: {fileID: 114534294890855092, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: controllerBox
+      value: 
+      objectReference: {fileID: 9100000, guid: 52ba83a0f0e4fd74dbf24a889e7890c2, type: 2}
+    - target: {fileID: 61112125036680804, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 61112125036680804, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 61112125036680804, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256076480527320, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.072
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256076480527320, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114534294890855092, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+        type: 2}
+      propertyPath: grabberPos
+      value: 
+      objectReference: {fileID: 822791912}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
   m_IsPrefabAsset: 0
@@ -374,6 +412,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &822791912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1345722405501228, guid: 181a3de5b64ef1b4d86a28c364cf2f1f,
+    type: 2}
+  m_PrefabInternal: {fileID: 180768467}
 --- !u!1 &1088343184
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e4ea08004f6e0499afc080aedd6b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  controllerBox: {fileID: 0}
+  grabberPos: {fileID: 0}
+  grabberOffsetX: 0.15
+  grabberOffsetY: 0.1
   movementSpeed: 10
 --- !u!212 &1120927732
 SpriteRenderer:
