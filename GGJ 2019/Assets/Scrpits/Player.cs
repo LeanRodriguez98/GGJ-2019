@@ -38,12 +38,30 @@ public class Player : MonoBehaviour {
     {
         canPickUp = pickUpTrigger.CanPickUpObj;
 
-        if (Input.GetButtonDown("Action") && canPickUp)
+        if (Input.GetButton("Action") && canPickUp)
         {
             Debug.Log("Pick up button");
+
+            // ------ New pick up mechanic------ //
             objectToPickUp = pickUpTrigger.objToPickUp;
-            objectToPickUp.transform.SetParent(holdItemPos);
-            objectToPickUp.transform.localPosition = Vector3.zero;
+            PickUpableObject obj = objectToPickUp.GetComponent<PickUpableObject>();
+            obj.beingPickedUp = true;
+
+            // disable item
+            if (obj.GetPickedUp())
+            {
+                objectToPickUp.transform.SetParent(holdItemPos);
+                objectToPickUp.transform.localPosition = Vector3.zero;
+                objectToPickUp.SetActive(false);
+            }
+        }
+        else if (Input.GetButtonUp("Action"))
+        {
+            if (objectToPickUp != null)
+            {
+                PickUpableObject obj = objectToPickUp.GetComponent<PickUpableObject>();
+                obj.beingPickedUp = false;
+            }
         }
     }
 
