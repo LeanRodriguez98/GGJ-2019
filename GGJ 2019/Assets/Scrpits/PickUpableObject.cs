@@ -28,6 +28,8 @@ public class PickUpableObject : MonoBehaviour
 
     private void Update()
     {
+
+
         if (!pickedUp && beingPickedUp)
         {
             //Debug.Log("Someone is picking me up!!!!!!");
@@ -70,7 +72,12 @@ public class PickUpableObject : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall") ||
             collision.gameObject.CompareTag("Object"))
         {
-            canPutDown = true;
+            Invoke("OffsetExitTimer", 0.05f);
         }
+    }
+
+    public void OffsetExitTimer()
+    {
+        canPutDown = true;
     }
 }
