@@ -26,10 +26,30 @@ public class Player : MonoBehaviour {
         {
             position.x += movementSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
         }
-     
+
         if (transform.position.x != position.x || transform.position.y != position.y)
         {
             transform.position = position;
+        }
+
+        if (Input.GetAxis("RightVertical") > 0)
+        {
+
+        }
+
+        if (Input.GetAxis("RightVertical") < 0)
+        {
+
+        }
+
+        if (Input.GetAxis("RightHorizontal") > 0)
+        {
+
+        }
+
+        if (Input.GetAxis("RightHorizontal") < 0)
+        {
+
         }
     }
 }
