@@ -4,17 +4,47 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    private Vector2 position;
     public float movementSpeed;
+    public Transform holdItemPos;
+
+    private PlayerPickUpTrigger pickUpTrigger;
+    private Vector2 position;
     private Animator animator;
-	void Start () {
+    private bool canPickUp;
+
+    private GameObject objectToPickUp;
+    public void SetCurrentObj(GameObject obj)
+    {
+        objectToPickUp = obj;
+    }
+
+    void Start ()
+    {
+        objectToPickUp = null;
+        pickUpTrigger = GetComponentInChildren<PlayerPickUpTrigger>();
         position = transform.position;
         animator = GetComponent<Animator>();
-	}
+        canPickUp = pickUpTrigger.CanPickUpObj;
+    }
 
-    void Update () {
+    void Update ()
+    {
         Movement();
+        PickUp();
 
+    }
+
+    private void PickUp()
+    {
+        canPickUp = pickUpTrigger.CanPickUpObj;
+
+        if (Input.GetButtonDown("Action") && canPickUp)
+        {
+            Debug.Log("Pick up button");
+            objectToPickUp = pickUpTrigger.objToPickUp;
+            objectToPickUp.transform.SetParent(holdItemPos);
+            objectToPickUp.transform.localPosition = Vector3.zero;
+        }
     }
 
     private void Movement()
@@ -39,12 +69,10 @@ public class Player : MonoBehaviour {
             animator.SetBool("NoMovement", true);
             animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
             animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-
         }
         else
         {
             animator.SetBool("NoMovement", false);
-
         }
 
         if (transform.position.x != position.x || transform.position.y != position.y)
@@ -79,7 +107,5 @@ public class Player : MonoBehaviour {
 
         }*/
     }
-
-      
-    }
+}
 
