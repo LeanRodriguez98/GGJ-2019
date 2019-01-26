@@ -68,7 +68,7 @@ public class Player : MonoBehaviour {
                 PickUp();
                 break;
             case PlayerState.HOLDING_ITEM:
-                Movement(1);// <------------ Change by the object weight
+                Movement(objectToPickUp.weight);// <------------ Change by the object weight
                 DropItem();
                 break;
         }
