@@ -8,7 +8,7 @@ public class PlayerPickUpTrigger : MonoBehaviour
     public bool ObjPickedUp     { get; set; }
 
     [HideInInspector]
-    public GameObject objToPickUp;
+    public PickUpableObject objToPickUp;
 
     void Start ()
     {
@@ -23,7 +23,7 @@ public class PlayerPickUpTrigger : MonoBehaviour
             Debug.Log("CAN pick up");
             CanPickUpObj = true;
 
-            objToPickUp = collision.gameObject;
+            objToPickUp = collision.gameObject.GetComponent<PickUpableObject>();
         }
     }
 

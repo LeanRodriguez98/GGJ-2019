@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class PickUpTimer : MonoBehaviour
 {
-    private Image loadingBarImage;
+    public Image loadingBarImage;
+
     private float pickUpTime;
     private bool startTimer;
 
@@ -16,10 +17,10 @@ public class PickUpTimer : MonoBehaviour
 
     private void Start()
     {
-        loadingBarImage = GetComponent<Image>();
         loadingBarImage.fillAmount = 0;
         pickUpTime = 0;
         startTimer = false;
+        loadingBarImage.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -29,13 +30,16 @@ public class PickUpTimer : MonoBehaviour
             if (!currentObj.beingPickedUp)
             {
                 loadingBarImage.fillAmount = 0;
+                loadingBarImage.gameObject.SetActive(false);
             }
         }
     }
 
     public void EnableLoadingCircle()
     {
-        if (loadingBarImage.fillAmount != 1)
+        loadingBarImage.gameObject.SetActive(true);
+
+        if (loadingBarImage.fillAmount < 1)
         {
             //Debug.Log("Time: " + timerTest);
             timerTest += Time.deltaTime;
@@ -46,6 +50,7 @@ public class PickUpTimer : MonoBehaviour
         {
             Debug.Log("Object Picked Up!");
             currentObj.PickedUp();
+            loadingBarImage.gameObject.SetActive(false);
         }
     }
 

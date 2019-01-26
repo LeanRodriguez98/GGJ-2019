@@ -5,33 +5,55 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float movementSpeed;
-    public Transform holdItemPos;
+    private PickUpableObject objectToPickUp;
 
     private PlayerPickUpTrigger pickUpTrigger;
-    private Vector2 position;
+    private Vector2 movement;
     private Animator animator;
     private bool canPickUp;
 
-    private GameObject objectToPickUp;
-    public void SetCurrentObj(GameObject obj)
+    private Rigidbody2D rb;
+
+    public enum PlayerState
     {
-        objectToPickUp = obj;
+        NOT_HOLDING_ITEM,
+        HOLDING_ITEM
     }
+    private PlayerState state;
+
 
     void Start ()
     {
         objectToPickUp = null;
         pickUpTrigger = GetComponentInChildren<PlayerPickUpTrigger>();
-        position = transform.position;
+        movement = transform.position;
         animator = GetComponent<Animator>();
         canPickUp = pickUpTrigger.CanPickUpObj;
+        rb = GetComponent<Rigidbody2D>();
+
+        // Set default state
+        state = PlayerState.NOT_HOLDING_ITEM;
     }
 
-    void Update ()
+    void FixedUpdate ()
     {
-        Movement();
-        PickUp();
+        UpdatePlayerState();
 
+    }
+
+    private void UpdatePlayerState()
+    {
+        switch(state)
+        {
+            case PlayerState.NOT_HOLDING_ITEM:
+                MovementWithoutItem();
+                PickUp();
+                break;
+            case PlayerState.HOLDING_ITEM:
+                MovementWithoutItem();
+                //DropItem();
+                break;
+        }
     }
 
     private void PickUp()
@@ -44,42 +66,42 @@ public class Player : MonoBehaviour {
 
             // ------ New pick up mechanic------ //
             objectToPickUp = pickUpTrigger.objToPickUp;
-            PickUpableObject obj = objectToPickUp.GetComponent<PickUpableObject>();
-            obj.beingPickedUp = true;
+            objectToPickUp.beingPickedUp = true;
 
             // disable item
-            if (obj.GetPickedUp())
+            if (objectToPickUp.GetPickedUp())
             {
-                objectToPickUp.transform.SetParent(holdItemPos);
-                objectToPickUp.transform.localPosition = Vector3.zero;
-                objectToPickUp.SetActive(false);
+                objectToPickUp.gameObject.SetActive(false);
+                canPickUp = false;
+                state = PlayerState.HOLDING_ITEM;
             }
         }
         else if (Input.GetButtonUp("Action"))
         {
             if (objectToPickUp != null)
             {
-                PickUpableObject obj = objectToPickUp.GetComponent<PickUpableObject>();
-                obj.beingPickedUp = false;
+                objectToPickUp.beingPickedUp = false;
             }
         }
     }
 
-    private void Movement()
+    private void MovementWithItem()
+    {
+
+    }
+
+    private void MovementWithoutItem()
     {
         if (Input.GetAxis("Vertical") != 0)
         {
-            position.y += movementSpeed * Time.deltaTime * Input.GetAxis("Vertical");
             animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
             animator.SetFloat("Horizontal", 0);
 
         }
         if (Input.GetAxis("Horizontal") != 0)
         {
-            position.x += movementSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
             animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-            animator.SetFloat("Vertical",0);
-
+            animator.SetFloat("Vertical", 0);
         }
 
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
@@ -93,37 +115,48 @@ public class Player : MonoBehaviour {
             animator.SetBool("NoMovement", false);
         }
 
-        if (transform.position.x != position.x || transform.position.y != position.y)
+
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        Vector2 movement = new Vector2(x, y);
+        if (movement.magnitude > 1.0f)
         {
-            transform.position = position;
+            movement.Normalize();
         }
+        rb.velocity = movement * movementSpeed * Time.fixedDeltaTime;
 
-      /*  if (Mathf.Abs(Input.GetAxis("RightHorizontal")) < Mathf.Abs(Input.GetAxis("RightVertical")))
-        {
-            if (Input.GetAxis("RightVertical") < 0)
-            {
-                Debug.Log("up");
-                animator.SetFloat("Vertical", Input.GetAxis("RightVertical"));
-            }
-            else if (Input.GetAxis("RightVertical") > 0)
-            {
-                Debug.Log("Down");
-                animator.SetFloat("Vertical", Input.GetAxis("RightVertical"));
 
-            }
-        }
-        else if (Input.GetAxis("RightHorizontal") > 0)
-        {
-                Debug.Log("right");
-                animator.SetFloat("Horizontal", Input.GetAxis("RightHorizontal"));
 
-        }
-        else if (Input.GetAxis("RightHorizontal") < 0)
-        {
-                Debug.Log("left");
-            animator.SetFloat("Horizontal", Input.GetAxis("RightHorizontal"));
 
-        }*/
+    
+
+        /*  if (Mathf.Abs(Input.GetAxis("RightHorizontal")) < Mathf.Abs(Input.GetAxis("RightVertical")))
+          {
+              if (Input.GetAxis("RightVertical") < 0)
+              {
+                  Debug.Log("up");
+                  animator.SetFloat("Vertical", Input.GetAxis("RightVertical"));
+              }
+              else if (Input.GetAxis("RightVertical") > 0)
+              {
+                  Debug.Log("Down");
+                  animator.SetFloat("Vertical", Input.GetAxis("RightVertical"));
+
+              }
+          }
+          else if (Input.GetAxis("RightHorizontal") > 0)
+          {
+                  Debug.Log("right");
+                  animator.SetFloat("Horizontal", Input.GetAxis("RightHorizontal"));
+
+          }
+          else if (Input.GetAxis("RightHorizontal") < 0)
+          {
+                  Debug.Log("left");
+              animator.SetFloat("Horizontal", Input.GetAxis("RightHorizontal"));
+
+          }*/
     }
 }
 
