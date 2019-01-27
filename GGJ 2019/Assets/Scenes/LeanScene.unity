@@ -122,11 +122,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4672254088619114, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.15
+      value: 0.461
       objectReference: {fileID: 0}
     - target: {fileID: 4672254088619114, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.61
+      value: -1.679
       objectReference: {fileID: 0}
     - target: {fileID: 4672254088619114, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -186,12 +186,17 @@ Prefab:
       value: 
       objectReference: {fileID: 2041039764}
     - target: {fileID: 1680546509163640, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
+<<<<<<< Updated upstream
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1345722405501228, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
       propertyPath: m_Layer
       value: 8
+=======
+      propertyPath: m_IsActive
+      value: 1
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181a3de5b64ef1b4d86a28c364cf2f1f, type: 2}
