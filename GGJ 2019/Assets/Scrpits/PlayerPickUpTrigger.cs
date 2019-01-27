@@ -64,12 +64,12 @@ public class PlayerPickUpTrigger : MonoBehaviour
         }
     }
 
-	void DisplayObjectInfo()
+	public void DisplayObjectInfo()
 	{
         playerUI.DisplayInfo();
 	}
     
-	void HideObjectInfo()
+	public void HideObjectInfo()
 	{
         playerUI.HideInfo();
     }

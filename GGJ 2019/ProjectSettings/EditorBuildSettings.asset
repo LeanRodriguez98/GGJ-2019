@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BetoScene.unity
     guid: be4dad005e7964045ba4dac3a28f89d1
+  - enabled: 1
+    path: Assets/Scenes/LeanScene.unity
+    guid: 778507e925c1b6246baea9a33aeeb67e
   m_configObjects: {}

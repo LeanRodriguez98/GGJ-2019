@@ -35,16 +35,6 @@ public class Player : MonoBehaviour
     }
     private PlayerState state;
 
-  
-    [System.Serializable]
-    public struct PlayerData
-    {
-        public string horizontalAxis;
-        public string verticalAxis;
-        public string actionButton;
-    }
-
-    public PlayerData playerData;
 
     void Start ()
     {
@@ -78,7 +68,7 @@ public class Player : MonoBehaviour
         {
             case PlayerState.NOT_HOLDING_ITEM:
                 Movement(1);
-                if (Input.GetButton(playerData.actionButton) && pickUpTrigger.CanPickUpObj)
+                if (Input.GetButton("Action") && pickUpTrigger.CanPickUpObj)
                 {
                     state = PlayerState.PICKING_UP;
                 }
@@ -97,7 +87,7 @@ public class Player : MonoBehaviour
     {
         if (pickUpTrigger.CanDropOnTruck)
         {
-            if (Input.GetButtonDown(playerData.actionButton))
+            if (Input.GetButtonDown("Action"))
             {
                 Debug.Log("Item dropped on truck");
 
@@ -115,7 +105,7 @@ public class Player : MonoBehaviour
     {
         canPickUp = pickUpTrigger.CanPickUpObj;
 
-        if (Input.GetButton(playerData.actionButton) && pickUpTrigger.CanPickUpObj)
+        if (Input.GetButton("Action") && pickUpTrigger.CanPickUpObj)
         {
 
             Debug.Log("Pick up button");
@@ -136,12 +126,13 @@ public class Player : MonoBehaviour
                     objectToPickUp.gameObject.SetActive(false);
                     canPickUp = false;
                     state = PlayerState.HOLDING_ITEM;
+                    pickUpTrigger.HideObjectInfo();
                     Debug.Log("Culo2");
                     animator.runtimeAnimatorController = controllerBox;
                 }
             }
         }
-        else if (Input.GetButtonUp(playerData.actionButton))
+        else if (Input.GetButtonUp("Action"))
         {
             if (objectToPickUp != null)
             {
@@ -154,11 +145,11 @@ public class Player : MonoBehaviour
     
     private void Movement(float weight)
     {
-        if (Input.GetAxis(playerData.verticalAxis) != 0)
+        if (Input.GetAxis("Vertical") != 0)
         {
-            animator.SetFloat("Vertical", Input.GetAxis(playerData.verticalAxis));
+            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
             animator.SetFloat("Horizontal", 0);
-            if (Input.GetAxis(playerData.verticalAxis) < 0)
+            if (Input.GetAxis("Vertical") < 0)
             {
                 grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY * -1);
             }
@@ -168,12 +159,12 @@ public class Player : MonoBehaviour
 
             }
         }
-        if (Input.GetAxis(playerData.horizontalAxis) != 0)
+        if (Input.GetAxis("Horizontal") != 0)
         {
-            animator.SetFloat("Horizontal", Input.GetAxis(playerData.horizontalAxis));
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
             animator.SetFloat("Vertical", 0);
 
-            if (Input.GetAxis(playerData.horizontalAxis) < 0)
+            if (Input.GetAxis("Horizontal") < 0)
             {
                 grabberPos.transform.localPosition = new Vector2(grabberOffsetX * -1, 0);
 
@@ -185,11 +176,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis(playerData.horizontalAxis) == 0 && Input.GetAxis(playerData.verticalAxis) == 0)
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
             animator.SetBool("NoMovement", true);
-            animator.SetFloat("Vertical", Input.GetAxis(playerData.verticalAxis));
-            animator.SetFloat("Horizontal", Input.GetAxis(playerData.horizontalAxis));
+            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
         }
         else
         {
@@ -197,8 +188,8 @@ public class Player : MonoBehaviour
         }
 
 
-        float x = Input.GetAxis(playerData.horizontalAxis);
-        float y = Input.GetAxis(playerData.verticalAxis);
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
 
         Vector2 movement = new Vector2(x, y);
         if (movement.magnitude > 1.0f)
