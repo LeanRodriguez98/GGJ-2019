@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class Player : MonoBehaviour {
-
+public class Player : MonoBehaviour
+{
     public RuntimeAnimatorController controller;
     public RuntimeAnimatorController controllerBox;
 

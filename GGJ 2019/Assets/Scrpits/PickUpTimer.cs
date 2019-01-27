@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 public class PickUpTimer : MonoBehaviour
 {
+	public Transform playerTransform;
     public Image loadingBarImage;
+	public float offsetX;
+	public float offsetY;
 
-    private float pickUpTime;
+	private Camera cam;
+	private Transform loadingBarTransform;
+	private float pickUpTime;
     private bool startTimer;
-
-    private float timerTest = 0;
 
     private PickUpableObject currentObj;
     public void SetCurrentObj(PickUpableObject obj) { currentObj = obj; }
 
     private void Start()
     {
+		cam = Camera.main;
+		loadingBarTransform = loadingBarImage.gameObject.transform;
         loadingBarImage.fillAmount = 0;
         pickUpTime = 0;
         startTimer = false;
@@ -25,6 +30,9 @@ public class PickUpTimer : MonoBehaviour
 
     private void Update()
     {
+		Vector2 barPos = cam.WorldToScreenPoint(playerTransform.position);
+		loadingBarTransform.position = new Vector2(barPos.x + offsetX, barPos.y + offsetY);
+
         if (currentObj != null)
         {
             if (!currentObj.beingPickedUp)
