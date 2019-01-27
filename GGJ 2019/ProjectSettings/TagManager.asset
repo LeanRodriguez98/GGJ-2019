@@ -7,6 +7,10 @@ TagManager:
   - Wall
   - Object
   - Truck
+  - PlayerOne
+  - PlayerTwo
+  - PlayerOne_UI
+  - PlayerTwo_UI
   layers:
   - Default
   - TransparentFX

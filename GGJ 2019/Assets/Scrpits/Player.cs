@@ -5,6 +5,8 @@ using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
+    public PlayerUI playerUI;
+
     public RuntimeAnimatorController controller;
     public RuntimeAnimatorController controllerBox;
 
@@ -112,23 +114,31 @@ public class Player : MonoBehaviour
 
             // ------ New pick up mechanic------ //
             objectToPickUp = pickUpTrigger.objToPickUp;
-            objectToPickUp.beingPickedUp = true;
 
-            // disable item
-            if (objectToPickUp.GetPickedUp())
+            if (!objectToPickUp.BeingPickedUp)
             {
-                objectToPickUp.gameObject.SetActive(false);
-                canPickUp = false;
-                state = PlayerState.HOLDING_ITEM;
-                Debug.Log("Culo");
-                animator.runtimeAnimatorController = controllerBox;
+                playerUI.EnableLoadingCircle(); 
+
+                //objectToPickUp.BeingPickedUp = true;
+
+                // disable item
+                if (objectToPickUp.GetPickedUp())
+                {
+                    playerUI.ResetTimer();
+                    objectToPickUp.gameObject.SetActive(false);
+                    canPickUp = false;
+                    state = PlayerState.HOLDING_ITEM;
+                    Debug.Log("Culo2");
+                    animator.runtimeAnimatorController = controllerBox;
+                }
             }
         }
         else if (Input.GetButtonUp(playerData.actionButton))
         {
             if (objectToPickUp != null)
             {
-                objectToPickUp.beingPickedUp = false;
+                objectToPickUp.BeingPickedUp = false;
+                playerUI.ResetTimer();
             }
         }
     }

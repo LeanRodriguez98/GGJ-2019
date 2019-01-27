@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerPickUpTrigger : MonoBehaviour
 {
+    public PlayerUI playerUI;
+
     public bool CanPickUpObj    { get; set; }
     public bool ObjPickedUp     { get; set; }
     public bool CanDropOnTruck  { get; set; }
@@ -36,7 +38,10 @@ public class PlayerPickUpTrigger : MonoBehaviour
 
             objToPickUp = collision.gameObject.GetComponent<PickUpableObject>();
 
-			objToPickUp.SetObjectForPlayerUI(objToPickUp);
+			//objToPickUp.SetObjectForPlayerUI(objToPickUp);
+
+            playerUI.SetCurrentObj(collision.gameObject.GetComponent<PickUpableObject>());
+
 			DisplayObjectInfo();
         }
     }
@@ -61,13 +66,11 @@ public class PlayerPickUpTrigger : MonoBehaviour
 
 	void DisplayObjectInfo()
 	{
-		if (objToPickUp != null)
-			objToPickUp.DisplayObjectInfo();
+        playerUI.DisplayInfo();
 	}
-
+    
 	void HideObjectInfo()
 	{
-		if (objToPickUp != null)
-			objToPickUp.HideObjectInfo();
-	}
+        playerUI.HideInfo();
+    }
 }

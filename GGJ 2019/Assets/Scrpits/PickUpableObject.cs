@@ -9,33 +9,33 @@ public class PickUpableObject : MonoBehaviour
     public float timeToPickUp = 5f;
     public Sprite objectImage;
 
-    [HideInInspector]
-    public bool beingPickedUp;
+    public bool BeingPickedUp { get; set; }
 
     [HideInInspector]
     public bool canPutDown;
 
-    private PlayerUI playerUI;
+    //private PlayerUI playerUI;
     private bool pickedUp;
     private SpriteRenderer spriteR;
 
     private void Start()
     {
-        playerUI = FindObjectOfType<PlayerUI>();
+       // playerUI = FindObjectOfType<PlayerUI>();
         pickedUp = false;
         canPutDown = true;
         spriteR = GetComponent<SpriteRenderer>();
+        BeingPickedUp = false;
     }
 
     private void Update()
     {
-        if (!pickedUp && beingPickedUp)
+        if (!pickedUp && BeingPickedUp)
         {
             //Debug.Log("Someone is picking me up!!!!!!");
 
             // start pick up timer based on timeToPickUp
-            playerUI.SetCurrentObj(this);
-            playerUI.EnableLoadingCircle();
+            //playerUI.SetCurrentObj(this);
+            //playerUI.EnableLoadingCircle();
         }
 
         //if (canPutDown)
@@ -50,16 +50,16 @@ public class PickUpableObject : MonoBehaviour
         //}
     }
 
-	public void SetObjectForPlayerUI(PickUpableObject obj)
-	{
-		playerUI.SetCurrentObj(obj);
-	}
+	//public void SetObjectForPlayerUI(PickUpableObject obj)
+	//{
+	//	playerUI.SetCurrentObj(obj);
+	//}
 
     public void PickedUp()
     {
 		// Item is now being carried by the player
-		HideObjectInfo();
-        playerUI.ResetTimer();
+		//HideObjectInfo();
+        //playerUI.ResetTimer();
         pickedUp = true;
     }
 
@@ -92,13 +92,13 @@ public class PickUpableObject : MonoBehaviour
         canPutDown = true;
     }
 
-	public void DisplayObjectInfo()
-	{
-		playerUI.DisplayInfo();
-	}
-
-	public void HideObjectInfo()
-	{
-		playerUI.HideInfo();
-	}
+	//public void DisplayObjectInfo()
+	//{
+	//	playerUI.DisplayInfo();
+	//}
+    //
+	//public void HideObjectInfo()
+	//{
+	//	playerUI.HideInfo();
+	//}
 }

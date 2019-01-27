@@ -16,7 +16,7 @@ public class PickUpTimeTest : MonoBehaviour
         {
             if (currentObj != null)
             {
-                currentObj.beingPickedUp = false;
+                currentObj.BeingPickedUp = false;
             }
         }
     }
@@ -32,7 +32,7 @@ public class PickUpTimeTest : MonoBehaviour
             //Debug.Log("Object: " + hit.collider.name);
 
             currentObj = hit.collider.GetComponent<PickUpableObject>();
-            currentObj.beingPickedUp = true;
+            currentObj.BeingPickedUp = true;
         }
     }
 }

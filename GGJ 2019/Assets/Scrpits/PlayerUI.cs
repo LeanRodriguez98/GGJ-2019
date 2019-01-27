@@ -44,10 +44,10 @@ public class PlayerUI : MonoBehaviour
 
         if (currentObj != null)
         {
-            if (!currentObj.beingPickedUp)
+            if (!currentObj.BeingPickedUp)
             {
-                loadingBarImage.fillAmount = 0;
-                loadingBarImage.gameObject.SetActive(false);
+                //loadingBarImage.fillAmount = 0;
+                //loadingBarImage.gameObject.SetActive(false);
             }
         }
     }
@@ -55,9 +55,11 @@ public class PlayerUI : MonoBehaviour
     public void EnableLoadingCircle()
     {
         loadingBarImage.gameObject.SetActive(true);
+        Debug.Log("culo encendedor");
 
         if (loadingBarImage.fillAmount < 1)
         {
+            Debug.Log("Picking up object!");
             loadingBarImage.fillAmount += Time.deltaTime / currentObj.timeToPickUp;
         }
         else
