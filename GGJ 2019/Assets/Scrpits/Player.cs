@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
     public enum PlayerState
     {
         NOT_HOLDING_ITEM,
-        HOLDING_ITEM
+        HOLDING_ITEM,
+        PICKING_UP
     }
     private PlayerState state;
 
@@ -77,11 +78,17 @@ public class Player : MonoBehaviour
         {
             case PlayerState.NOT_HOLDING_ITEM:
                 Movement(1);
-                PickUp();
+                if (Input.GetButton(playerData.actionButton) && pickUpTrigger.CanPickUpObj)
+                {
+                    state = PlayerState.PICKING_UP;
+                }
                 break;
             case PlayerState.HOLDING_ITEM:
                 Movement(objectToPickUp.weight);// <------------ Change by the object weight
                 DropItem();
+                break;
+            case PlayerState.PICKING_UP:
+                PickUp();
                 break;
         }
     }
@@ -108,8 +115,9 @@ public class Player : MonoBehaviour
     {
         canPickUp = pickUpTrigger.CanPickUpObj;
 
-        if (Input.GetButton(playerData.actionButton) && canPickUp)
+        if (Input.GetButton(playerData.actionButton) && pickUpTrigger.CanPickUpObj)
         {
+
             Debug.Log("Pick up button");
 
             // ------ New pick up mechanic------ //
@@ -137,6 +145,7 @@ public class Player : MonoBehaviour
         {
             if (objectToPickUp != null)
             {
+                state = PlayerState.NOT_HOLDING_ITEM;
                 objectToPickUp.BeingPickedUp = false;
                 playerUI.ResetTimer();
             }
