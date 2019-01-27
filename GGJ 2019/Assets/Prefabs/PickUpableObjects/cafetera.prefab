@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1957781497786608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.23452759, y: 0.9094696, z: 0}
+  m_LocalPosition: {x: 0.019150514, y: -0.6898365, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0098306015, y: 0.0065196753}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -86,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.16241063, y: 0.2139728}
   m_EdgeRadius: 0
 --- !u!114 &114332790770871558
 MonoBehaviour:
@@ -99,11 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c5bac58d9984c47a67f463396c1038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  happiness: 5
-  weight: 5
-  timeToPickUp: 5
-  objectImage: {fileID: 0}
+  name: Cafetera
+  happiness: 4
+  weight: 1
+  timeToPickUp: 0.5
   canPutDown: 0
 --- !u!212 &212075504806515552
 SpriteRenderer:
