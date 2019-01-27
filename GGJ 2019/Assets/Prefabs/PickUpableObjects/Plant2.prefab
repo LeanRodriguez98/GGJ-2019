@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50278068933162654}
   m_Layer: 0
   m_Name: Plant2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1858654651993324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0872854, y: -0.48521924, z: 0.20411882}
+  m_LocalPosition: {x: 0.273, y: -0.938, z: 0.20411882}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c5bac58d9984c47a67f463396c1038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Planta grande
+  name: Planta G
   happiness: 3
   weight: 1.25
   timeToPickUp: 1

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50176321767886096}
   m_Layer: 0
   m_Name: Drawers
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1781207941618810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.044184327, y: -0.5872216, z: 0.20411882}
+  m_LocalPosition: {x: -0.379, y: 0.171, z: 0.20411882}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
