@@ -74,7 +74,7 @@ public class PlayerUI : MonoBehaviour
 	{
 		if (currentObj != null)
 		{
-			objectName.text = "Object: " + currentObj.gameObject.name;
+			objectName.text = "Object: " + currentObj.name;
 			happinessValue.text = "Happiness: " + currentObj.happiness;
 			weight.text = "Weight: " + currentObj.weight;
 			timeToPickUp.text = "Time to pick up: " + currentObj.weight;

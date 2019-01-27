@@ -99,10 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c5bac58d9984c47a67f463396c1038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Plant
   happiness: 5
+  weight: 5
   timeToPickUp: 5
   objectImage: {fileID: 21300000, guid: 1193d63c528236e41a61afdb49762505, type: 3}
-  beingPickedUp: 0
   canPutDown: 0
 --- !u!212 &212055599629296438
 SpriteRenderer:

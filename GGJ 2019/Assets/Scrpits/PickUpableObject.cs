@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpableObject : MonoBehaviour
 {
+    public string name;
     public int happiness = 5;
     public float weight = 5f;
     public float timeToPickUp = 5f;
