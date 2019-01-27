@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     public float timeToStartTimer;
     public AudioSource soundEffects;
     public GameObject gameOverScreen;
-
+    public Text timeText;
     private float timer;
     private bool timerStarted;
     private bool gameOver;
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
             gameOverScreen.SetActive(true);
             Time.timeScale = 0;
         }
+
+        timeText.text = ((int)(gameTime) - ((int)timer)).ToString("00");
     }
 
     void StartTimer()

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PickUpTimeTest : MonoBehaviour
 {
     private PickUpableObject currentObj;
-
 	void Update ()
     {
         if (Input.GetMouseButton(0))
