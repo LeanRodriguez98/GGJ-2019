@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY);
+                grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY + .2f);
 
             }
         }
@@ -166,12 +166,12 @@ public class Player : MonoBehaviour
 
             if (Input.GetAxis("Horizontal") < 0)
             {
-                grabberPos.transform.localPosition = new Vector2(grabberOffsetX * -1, 0);
+                grabberPos.transform.localPosition = new Vector2(grabberOffsetX * -1, .1f);
 
             }
             else
             {
-                grabberPos.transform.localPosition = new Vector2(grabberOffsetX, 0);
+                grabberPos.transform.localPosition = new Vector2(grabberOffsetX, .1f);
 
             }
         }
