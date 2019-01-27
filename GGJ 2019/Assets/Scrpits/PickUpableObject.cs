@@ -15,13 +15,13 @@ public class PickUpableObject : MonoBehaviour
     [HideInInspector]
     public bool canPutDown;
 
-    private PickUpTimer pickUpTimer;
+    private PlayerUI playerUI;
     private bool pickedUp;
     private SpriteRenderer spriteR;
 
     private void Start()
     {
-        pickUpTimer = FindObjectOfType<PickUpTimer>();
+        playerUI = FindObjectOfType<PlayerUI>();
         pickedUp = false;
         canPutDown = true;
         spriteR = GetComponent<SpriteRenderer>();
@@ -34,8 +34,8 @@ public class PickUpableObject : MonoBehaviour
             //Debug.Log("Someone is picking me up!!!!!!");
 
             // start pick up timer based on timeToPickUp
-            pickUpTimer.SetCurrentObj(this);
-            pickUpTimer.EnableLoadingCircle();
+            playerUI.SetCurrentObj(this);
+            playerUI.EnableLoadingCircle();
         }
 
         //if (canPutDown)
@@ -50,10 +50,16 @@ public class PickUpableObject : MonoBehaviour
         //}
     }
 
+	public void SetObjectForPlayerUI(PickUpableObject obj)
+	{
+		playerUI.SetCurrentObj(obj);
+	}
+
     public void PickedUp()
     {
-        // Item is now being carried by the player
-        pickUpTimer.ResetTimer();
+		// Item is now being carried by the player
+		HideObjectInfo();
+        playerUI.ResetTimer();
         pickedUp = true;
     }
 
@@ -85,4 +91,14 @@ public class PickUpableObject : MonoBehaviour
     {
         canPutDown = true;
     }
+
+	public void DisplayObjectInfo()
+	{
+		playerUI.DisplayInfo();
+	}
+
+	public void HideObjectInfo()
+	{
+		playerUI.HideInfo();
+	}
 }

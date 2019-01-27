@@ -35,6 +35,9 @@ public class PlayerPickUpTrigger : MonoBehaviour
             CanPickUpObj = true;
 
             objToPickUp = collision.gameObject.GetComponent<PickUpableObject>();
+
+			objToPickUp.SetObjectForPlayerUI(objToPickUp);
+			DisplayObjectInfo();
         }
     }
 
@@ -45,7 +48,8 @@ public class PlayerPickUpTrigger : MonoBehaviour
             Debug.Log("CANT pick up");
             CanPickUpObj = false;
 
-            objToPickUp = null;
+			HideObjectInfo();
+			objToPickUp = null;
         }
 
         if (collision.gameObject.CompareTag("Truck"))
@@ -54,4 +58,16 @@ public class PlayerPickUpTrigger : MonoBehaviour
             CanDropOnTruck = false;
         }
     }
+
+	void DisplayObjectInfo()
+	{
+		if (objToPickUp != null)
+			objToPickUp.DisplayObjectInfo();
+	}
+
+	void HideObjectInfo()
+	{
+		if (objToPickUp != null)
+			objToPickUp.HideObjectInfo();
+	}
 }

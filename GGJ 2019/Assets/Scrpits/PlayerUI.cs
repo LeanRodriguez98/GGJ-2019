@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickUpTimer : MonoBehaviour
+public class PlayerUI : MonoBehaviour
 {
+	public GameObject objectInfo;
+	public Text objectName;
+	public Text happinessValue; // later define if value changes between players
+	public Text weight;
+	public Text timeToPickUp;
+
+
 	public Transform playerTransform;
     public Image loadingBarImage;
 	public float offsetX;
@@ -25,7 +32,9 @@ public class PickUpTimer : MonoBehaviour
         loadingBarImage.fillAmount = 0;
         pickUpTime = 0;
         startTimer = false;
+
         loadingBarImage.gameObject.SetActive(false);
+		objectInfo.SetActive(false);
     }
 
     private void Update()
@@ -59,7 +68,24 @@ public class PickUpTimer : MonoBehaviour
         }
     }
 
-    public void StartTimer()
+	public void DisplayInfo()
+	{
+		if (currentObj != null)
+		{
+			objectName.text = "Object: " + currentObj.gameObject.name;
+			happinessValue.text = "Happiness: " + currentObj.happiness;
+			weight.text = "Weight: " + currentObj.weight;
+			timeToPickUp.text = "Time to pick up: " + currentObj.weight;
+			objectInfo.SetActive(true);
+		}
+	}
+
+	public void HideInfo()
+	{
+		objectInfo.SetActive(false);
+	}
+
+	public void StartTimer()
     {
         startTimer = true;
     }
