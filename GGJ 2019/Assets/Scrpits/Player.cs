@@ -5,6 +5,10 @@ using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
+    public AudioClip leaveBox;
+    public AudioClip pickUpBox;
+    public AudioClip pickUpHeavyBox;
+
     public PlayerUI playerUI;
 
     public RuntimeAnimatorController controller;
@@ -91,6 +95,8 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Item dropped on truck");
 
+                GameManager.GetInstance().PlayEffectSound(leaveBox);
+
                 // push item into truck
                 truck.AddItem(objectToPickUp);
                 objectToPickUp = null;
@@ -122,6 +128,7 @@ public class Player : MonoBehaviour
                 // disable item
                 if (objectToPickUp.GetPickedUp())
                 {
+                    GameManager.GetInstance().PlayEffectSound(pickUpBox);
                     playerUI.ResetTimer();
                     objectToPickUp.gameObject.SetActive(false);
                     canPickUp = false;

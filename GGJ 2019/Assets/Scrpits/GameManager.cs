@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public AudioClip gameOverSoundEffect;
+
     public float gameTime;
     public float timeToStartTimer;
     public AudioSource soundEffects;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         gameOver = false;
         Invoke("StartTimer", timeToStartTimer);
+        this.Invoke("PlayEffectSound", gameOverSoundEffect, gameTime + timeToStartTimer);
     }
 
     void Update ()
@@ -53,7 +56,6 @@ public class GameManager : MonoBehaviour
         else
         {
             gameOverScreen.SetActive(true);
-            Time.timeScale = 0;
         }
 
         timeText.text = ((int)(gameTime) - ((int)timer)).ToString("00");
@@ -62,5 +64,10 @@ public class GameManager : MonoBehaviour
     void StartTimer()
     {
         timerStarted = true;
+    }
+
+    public void PlayEffectSound(AudioClip a)
+    {
+        soundEffects.PlayOneShot(a);
     }
 }
