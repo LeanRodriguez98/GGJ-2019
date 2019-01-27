@@ -32,6 +32,16 @@ public class Player : MonoBehaviour
     }
     private PlayerState state;
 
+  
+    [System.Serializable]
+    public struct PlayerData
+    {
+        public string horizontalAxis;
+        public string verticalAxis;
+        public string actionButton;
+    }
+
+    public PlayerData playerData;
 
     void Start ()
     {
@@ -78,7 +88,7 @@ public class Player : MonoBehaviour
     {
         if (pickUpTrigger.CanDropOnTruck)
         {
-            if (Input.GetButtonDown("Action"))
+            if (Input.GetButtonDown(playerData.actionButton))
             {
                 Debug.Log("Item dropped on truck");
 
@@ -96,7 +106,7 @@ public class Player : MonoBehaviour
     {
         canPickUp = pickUpTrigger.CanPickUpObj;
 
-        if (Input.GetButton("Action") && canPickUp)
+        if (Input.GetButton(playerData.actionButton) && canPickUp)
         {
             Debug.Log("Pick up button");
 
@@ -114,7 +124,7 @@ public class Player : MonoBehaviour
                 animator.runtimeAnimatorController = controllerBox;
             }
         }
-        else if (Input.GetButtonUp("Action"))
+        else if (Input.GetButtonUp(playerData.actionButton))
         {
             if (objectToPickUp != null)
             {
@@ -125,11 +135,11 @@ public class Player : MonoBehaviour
     
     private void Movement(float weight)
     {
-        if (Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis(playerData.verticalAxis) != 0)
         {
-            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+            animator.SetFloat("Vertical", Input.GetAxis(playerData.verticalAxis));
             animator.SetFloat("Horizontal", 0);
-            if (Input.GetAxis("Vertical") < 0)
+            if (Input.GetAxis(playerData.verticalAxis) < 0)
             {
                 grabberPos.transform.localPosition = new Vector2(0, grabberOffsetY * -1);
             }
@@ -139,12 +149,12 @@ public class Player : MonoBehaviour
 
             }
         }
-        if (Input.GetAxis("Horizontal") != 0)
+        if (Input.GetAxis(playerData.horizontalAxis) != 0)
         {
-            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+            animator.SetFloat("Horizontal", Input.GetAxis(playerData.horizontalAxis));
             animator.SetFloat("Vertical", 0);
 
-            if (Input.GetAxis("Horizontal") < 0)
+            if (Input.GetAxis(playerData.horizontalAxis) < 0)
             {
                 grabberPos.transform.localPosition = new Vector2(grabberOffsetX * -1, 0);
 
@@ -156,11 +166,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        if (Input.GetAxis(playerData.horizontalAxis) == 0 && Input.GetAxis(playerData.verticalAxis) == 0)
         {
             animator.SetBool("NoMovement", true);
-            animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
-            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+            animator.SetFloat("Vertical", Input.GetAxis(playerData.verticalAxis));
+            animator.SetFloat("Horizontal", Input.GetAxis(playerData.horizontalAxis));
         }
         else
         {
@@ -168,8 +178,8 @@ public class Player : MonoBehaviour
         }
 
 
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxis(playerData.horizontalAxis);
+        float y = Input.GetAxis(playerData.verticalAxis);
 
         Vector2 movement = new Vector2(x, y);
         if (movement.magnitude > 1.0f)
