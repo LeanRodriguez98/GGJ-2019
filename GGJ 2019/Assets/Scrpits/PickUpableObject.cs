@@ -8,7 +8,6 @@ public class PickUpableObject : MonoBehaviour
     public int happiness = 5;
     public float weight = 5f;
     public float timeToPickUp = 5f;
-    public Sprite objectImage;
 
     public bool BeingPickedUp { get; set; }
 
